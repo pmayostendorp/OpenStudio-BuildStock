@@ -4,7 +4,7 @@ project_directory: project_multifamily_beta # Relative to buildstock_directory
 output_directory: ../project_multifamily_awsbatch
 weather_files_path: ../OpenStudio-BuildStock/AMY_2012_IL.zip # Relative to this file or absolute path to zipped weather files
 baseline:
-  n_datapoints: 500
+  n_datapoints: 550000
   #buildstock_csv: ./buildstock_spatial_IL.csv
   n_buildings_represented: 109105332
 
