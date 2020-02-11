@@ -1,0 +1,60 @@
+stock_type: residential
+buildstock_directory: ../OpenStudio-BuildStock # Relative to this file or absolute
+project_directory: project_multifamily_beta # Relative to buildstock_directory
+output_directory: ../project_multifamily_awsbatch
+weather_files_path: ../OpenStudio-BuildStock/AMY_2012_IL.zip # Relative to this file or absolute path to zipped weather files
+baseline:
+  n_datapoints: 550000
+  #buildstock_csv: ./buildstock_spatial_IL.csv
+  n_buildings_represented: 109105332
+
+residential_simulation_controls:
+  timesteps_per_hr: 4
+
+downselect:
+  resample: false
+  logic:
+  - or:
+      - Location|IL_Chicago-OHare.Intl.AP.725300
+      - Location|IL_Moline-Quad.City.Intl.AP.725440
+      - Location|IL_Peoria-Greater.Peoria.AP.725320
+      - Location|IL_Rockford-Greater.Rockford.AP.725430
+      - Location|IL_Springfield-Capital.AP.724390
+
+
+timeseries_csv_export:
+  reporting_frequency: Timestep
+  include_enduse_subcategories: true
+  output_variables: Site Outdoor Air Drybulb Temperature, Site Outdoor Air Relative Humidity, Zone Mean Air Temperature
+
+eagle:
+  n_jobs: 3
+  minutes_per_sim: 10
+  account: enduse
+  postprocessing:
+    time: 20
+    n_workers: 1
+  sampling:
+    time: 5
+aws:
+  # The job_identifier should be unique, start with alpha, and limited to 10 chars or data loss can occur
+  job_identifier: raj0210
+  s3:
+    bucket: eulp
+    prefix: simulation_output/regional_runs/IL/resstock/v1.1/2012/fullrun_ILspatial2012
+  region: us-west-2
+  use_spot: true
+  batch_array_size: 10000
+  # To receive email updates on job progress accept the request to receive emails that will be sent from Amazon
+  notifications_email: rajendra.adhikari@nrel.gov
+
+postprocessing:
+  aws:
+    region_name: 'us-west-2'
+    s3:
+      bucket: eulp
+      prefix: test_runs/aws_batch_test_pp
+    athena:
+      glue_service_role: service-role/AWSGlueServiceRole-default
+      database_name: aws-batch-test
+      max_crawling_time: 300 #time to wait for the crawler to complete before aborting it
