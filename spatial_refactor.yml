@@ -38,15 +38,17 @@ eagle:
     time: 5
 aws:
   # The job_identifier should be unique, start with alpha, and limited to 10 chars or data loss can occur
-  job_identifier: raj0210
+  job_identifier: sprfil2012
   s3:
     bucket: eulp
     prefix: simulation_output/regional_runs/IL/resstock/v1.1/2012/fullrun_ILspatial2012
+  emr:
+    slave_instance_count: 4
   region: us-west-2
   use_spot: true
   batch_array_size: 10000
   # To receive email updates on job progress accept the request to receive emails that will be sent from Amazon
-  notifications_email: rajendra.adhikari@nrel.gov
+  notifications_email: noel.merket@nrel.gov
 
 postprocessing:
   aws:
