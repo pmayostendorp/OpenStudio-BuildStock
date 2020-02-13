@@ -4,9 +4,9 @@ project_directory: project_multifamily_beta # Relative to buildstock_directory
 output_directory: ../project_multifamily_awsbatch
 weather_files_path: ../OpenStudio-BuildStock/AMY_2012_IL.zip # Relative to this file or absolute path to zipped weather files
 baseline:
-  n_datapoints: 550000
+  #n_datapoints: 550000
   #buildstock_csv: ./resources/buildstock_b4masonry.csv
-  #buildstock_csv: ./b4masonryIL.csv
+  buildstock_csv: ./b4masonryIL.csv
   n_buildings_represented: 109105332
 
 simulation_output:
@@ -15,15 +15,15 @@ simulation_output:
 residential_simulation_controls:
   timesteps_per_hr: 4
 
-downselect:
-  resample: false
-  logic:
-  - or:
-      - Location|IL_Chicago-OHare.Intl.AP.725300
-      - Location|IL_Moline-Quad.City.Intl.AP.725440
-      - Location|IL_Peoria-Greater.Peoria.AP.725320
-      - Location|IL_Rockford-Greater.Rockford.AP.725430
-      - Location|IL_Springfield-Capital.AP.724390
+# downselect:
+#   resample: false
+#   logic:
+#   - or:
+#       - Location|IL_Chicago-OHare.Intl.AP.725300
+#       - Location|IL_Moline-Quad.City.Intl.AP.725440
+#       - Location|IL_Peoria-Greater.Peoria.AP.725320
+#       - Location|IL_Rockford-Greater.Rockford.AP.725430
+#       - Location|IL_Springfield-Capital.AP.724390
 
 
 timeseries_csv_export:
@@ -45,10 +45,12 @@ aws:
   job_identifier: raj0210
   s3:
     bucket: eulp
-    prefix: simulation_output/regional_runs/IL/resstock/v1.1/2012/03.01.01.a_2012AMY
+    prefix: simulation_output/regional_runs/IL/resstock/v1.1/03.01.01.a_2012AMY
   region: us-west-2
   use_spot: true
   batch_array_size: 10000
+  job_environment: 
+    memory: 2048
   # To receive email updates on job progress accept the request to receive emails that will be sent from Amazon
   notifications_email: rajendra.adhikari@nrel.gov
 
