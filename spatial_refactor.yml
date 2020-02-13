@@ -11,6 +11,9 @@ baseline:
 residential_simulation_controls:
   timesteps_per_hr: 4
 
+simulation_output:
+  include_enduse_subcategories: true
+
 downselect:
   resample: false
   logic:
