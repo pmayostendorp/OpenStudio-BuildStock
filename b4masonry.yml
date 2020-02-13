@@ -5,8 +5,12 @@ output_directory: ../project_multifamily_awsbatch
 weather_files_path: ../OpenStudio-BuildStock/AMY_2012_IL.zip # Relative to this file or absolute path to zipped weather files
 baseline:
   n_datapoints: 550000
-  #buildstock_csv: ./buildstock_spatial_IL.csv
+  #buildstock_csv: ./resources/buildstock_b4masonry.csv
+  #buildstock_csv: ./b4masonryIL.csv
   n_buildings_represented: 109105332
+
+simulation_output:
+  include_enduse_subcategories: true
 
 residential_simulation_controls:
   timesteps_per_hr: 4
@@ -41,7 +45,7 @@ aws:
   job_identifier: raj0210
   s3:
     bucket: eulp
-    prefix: simulation_output/regional_runs/IL/resstock/v1.1/2012/fullrun_IL2012
+    prefix: simulation_output/regional_runs/IL/resstock/v1.1/2012/03.01.01.a_2012AMY
   region: us-west-2
   use_spot: true
   batch_array_size: 10000
