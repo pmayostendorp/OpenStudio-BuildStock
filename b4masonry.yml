@@ -2,7 +2,7 @@ stock_type: residential
 buildstock_directory: ../OpenStudio-BuildStock # Relative to this file or absolute
 project_directory: project_multifamily_beta # Relative to buildstock_directory
 output_directory: ../project_multifamily_awsbatch
-weather_files_path: ../OpenStudio-BuildStock/AMY_2012_IL.zip # Relative to this file or absolute path to zipped weather files
+weather_files_path: ../OpenStudio-BuildStock/AMY_2017_IL.zip # Relative to this file or absolute path to zipped weather files
 baseline:
   #n_datapoints: 550000
   #buildstock_csv: ./resources/buildstock_b4masonry.csv
@@ -45,7 +45,7 @@ aws:
   job_identifier: raj0210
   s3:
     bucket: eulp
-    prefix: simulation_output/regional_runs/IL/resstock/v1.1/03.01.01.a_2012AMY
+    prefix: simulation_output/regional_runs/IL/resstock/v1.1/03.01.01.c_2017AMY
   region: us-west-2
   use_spot: true
   batch_array_size: 10000
@@ -62,5 +62,5 @@ postprocessing:
       prefix: test_runs/aws_batch_test_pp
     athena:
       glue_service_role: service-role/AWSGlueServiceRole-default
-      database_name: aws-batch-test
+      database_name: enduse
       max_crawling_time: 300 #time to wait for the crawler to complete before aborting it
