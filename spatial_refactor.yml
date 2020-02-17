@@ -2,10 +2,10 @@ stock_type: residential
 buildstock_directory: ../OpenStudio-BuildStock # Relative to this file or absolute
 project_directory: project_multifamily_beta # Relative to buildstock_directory
 output_directory: ../project_multifamily_awsbatch
-weather_files_path: ../OpenStudio-BuildStock/AMY_2012_IL.zip # Relative to this file or absolute path to zipped weather files
+weather_files_path: ../OpenStudio-BuildStock/AMY_2016_IL.zip # Relative to this file or absolute path to zipped weather files
 baseline:
-  n_datapoints: 550000
-  #buildstock_csv: ./buildstock_spatial_IL.csv
+  #n_datapoints: 550000
+  buildstock_csv: ../buildstock.csv
   n_buildings_represented: 109105332
 
 residential_simulation_controls:
@@ -46,15 +46,17 @@ eagle:
     time: 5
 aws:
   # The job_identifier should be unique, start with alpha, and limited to 10 chars or data loss can occur
-  job_identifier: sprfil2012
+  job_identifier: sprfil2016
   s3:
     bucket: eulp
-    prefix: simulation_output/regional_runs/IL/resstock/v1.1/2012/fullrun_ILspatial2012
+    prefix: simulation_output/regional_runs/IL/resstock/v1.1/2016/fullrun_ILspatial2016
   emr:
     slave_instance_count: 4
   region: us-west-2
   use_spot: true
   batch_array_size: 10000
+  job_environment:
+     memory: 2048
   # To receive email updates on job progress accept the request to receive emails that will be sent from Amazon
   notifications_email: noel.merket@nrel.gov
 
@@ -66,5 +68,5 @@ postprocessing:
       prefix: test_runs/aws_batch_test_pp
     athena:
       glue_service_role: service-role/AWSGlueServiceRole-default
-      database_name: aws-batch-test
+      database_name: enduse
       max_crawling_time: 300 #time to wait for the crawler to complete before aborting it
