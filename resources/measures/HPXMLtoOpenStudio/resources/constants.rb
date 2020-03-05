@@ -205,10 +205,6 @@ class Constants
     return 'NumberOfBedrooms'
   end
 
-  def self.BuildingUnitFeatureNumOccupants
-    return 'NumberOfOccupants'
-  end
-
   def self.BuildingUnitTypeResidential
     return 'Residential'
   end
