@@ -1,0 +1,60 @@
+stock_type: residential
+buildstock_directory: ../  # Relative to this file or absolute
+project_directory: project_multifamily_beta  # Relative to buildstock_directory
+output_directory: /projects/enduse/mfm_runs/10_01_01_infil2016
+#weather_files_url: https://s3.amazonaws.com/epwweatherfiles/project_resstock_national.zip
+weather_files_path: ../../weatherfiles/AMY_2016_IL.zip  # Relative to this file or absolute path to zipped weather files
+
+reporting_measures:
+  - QOIReport
+
+baseline:
+  #buildstock_csv: buildstock.csv
+  n_datapoints: 550000 # Comment this line out if using a custom buildstock csv file
+  n_buildings_represented: 109105332
+downselect:
+  resample: false
+  logic:
+  - or:
+      - Location|IL_Chicago-OHare.Intl.AP.725300
+      - Location|IL_Moline-Quad.City.Intl.AP.725440
+      - Location|IL_Peoria-Greater.Peoria.AP.725320
+      - Location|IL_Rockford-Greater.Rockford.AP.725430
+      - Location|IL_Springfield-Capital.AP.724390
+
+residential_simulation_controls:
+  timesteps_per_hr: 4
+
+simulation_output:
+  include_enduse_subcategories: true
+  
+timeseries_csv_export:
+  reporting_frequency: Timestep 
+  include_enduse_subcategories: true
+  output_variables: Site Outdoor Air Drybulb Temperature, Site Outdoor Air Relative Humidity, Zone Mean Air Temperature
+
+# downselect:
+#   resample: false
+#   logic:
+#     - not: Heating Fuel|Natural Gas
+eagle:
+  n_jobs: 200
+  minutes_per_sim: 90
+  account: enduse
+  sampling:
+    time: 240
+  postprocessing:
+    time: 240
+    n_workers: 30
+
+postprocessing:
+  aggregate_timeseries: false
+  aws:
+    region_name: 'us-west-2'
+    s3:
+      bucket: eulp
+      prefix: simulation_output/regional_runs/IL/resstock/v1.1/10.01.01_infil2016
+    athena:
+      glue_service_role: service-role/AWSGlueServiceRole-default
+      database_name: enduse
+      max_crawling_time: 1000 #time to wait for the crawler to complete before aborting it
