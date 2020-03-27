@@ -15,7 +15,7 @@ baseline:
 downselect:
   resample: false
   logic:
-  - or:
+    - or:
       - Location|IL_Chicago-OHare.Intl.AP.725300
       - Location|IL_Moline-Quad.City.Intl.AP.725440
       - Location|IL_Peoria-Greater.Peoria.AP.725320
@@ -33,10 +33,21 @@ timeseries_csv_export:
   include_enduse_subcategories: true
   output_variables: Site Outdoor Air Drybulb Temperature, Site Outdoor Air Relative Humidity, Zone Mean Air Temperature
 
-# downselect:
-#   resample: false
-#   logic:
-#     - not: Heating Fuel|Natural Gas
+aws:
+  job_identifier: in20161011
+  region: us-west-2
+  job_environment:
+    memory: 2048
+  s3:
+    bucket: eulp
+    prefix: simulation_output/regional_runs/IL/resstock/v1.1/10.01.01_infil2016
+  emr:
+    slave_instance_count: 4
+    slave_instance_type: r5.12xlarge
+  use_spot: true
+  batch_array_size: 2500
+  notifications_email: noel.merket@nrel.gov
+
 eagle:
   n_jobs: 200
   minutes_per_sim: 90
