@@ -39,10 +39,6 @@ class ServerDirectoryCleanup < OpenStudio::Measure::ReportingMeasure
       File.delete(f)
       runner.registerInfo("Deleted #{f} from the run directory.") if !File.exist?(f)
     end
-    Dir.glob("./../../in.osm").each do |f|
-      File.delete(f)
-      runner.registerInfo("Deleted #{f} from the run directory.") if !File.exist?(f)
-    end
     Dir.glob("./../*.bnd").each do |f|
       File.delete(f)
       runner.registerInfo("Deleted #{f} from the run directory.") if !File.exist?(f)
@@ -64,6 +60,14 @@ class ServerDirectoryCleanup < OpenStudio::Measure::ReportingMeasure
       runner.registerInfo("Deleted #{f} from the run directory.") if !File.exist?(f)
     end
     Dir.glob("./../pre-preprocess.idf").each do |f|
+      File.delete(f)
+      runner.registerInfo("Deleted #{f} from the run directory.") if !File.exist?(f)
+    end
+    Dir.glob("./../*.end").each do |f|
+      File.delete(f)
+      runner.registerInfo("Deleted #{f} from the run directory.") if !File.exist?(f)
+    end
+    Dir.glob("./../*.htm").each do |f|
       File.delete(f)
       runner.registerInfo("Deleted #{f} from the run directory.") if !File.exist?(f)
     end
