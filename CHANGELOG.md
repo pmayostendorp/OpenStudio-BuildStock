@@ -1,4 +1,22 @@
-## ResStock v2.3.0 (pending)
+## ResStock v2.4.0 (pending)
+
+Features
+- Report the annual peak use and timing using the quantities of interest measure ([#458](https://github.com/NREL/OpenStudio-BuildStock/pull/458))
+- Major change to most occupant-related schedules. Occupant activities are now generated on-the-fly and saved to .csv files used by Schedule:File objects. Schedules are generated using time-inhomogenous Markov chains derived from American Time Use Survey data, supplemented with sampling duration and power level from NEEA RBSA data, as well as DHW draw duration and flow rate data from Aquacraft/AWWA data. ([#348](https://github.com/NREL/OpenStudio-BuildStock/pull/348))
+- Update the dependencies for heating and cooling setpoint tsvs (Setpoint, Has Offset, Offset Magnitude, and Offset Period) to IECC climate zone ([#468](https://github.com/NREL/OpenStudio-BuildStock/pull/468))
+- Allow heating fuel to be defined by Public Use Microdata Area (PUMA) rather than State ([#474](https://github.com/NREL/OpenStudio-BuildStock/pull/474))
+- Distinguish between vacant and occupied dwelling units using PUMS data ([#473](https://github.com/NREL/OpenStudio-BuildStock/pull/473)).
+- Restructure HVAC housing characteristics to 1) simplify the structure, 2) allow for integrating more local data sources, 3) update reference years for HVAC and refrigerator ages and efficiencies from 2009 to 2018, 4) add assumption comments to all HVAC-related housing characteristics, 5) improve Room AC efficiency distributions using ENERGY STAR saturation data, and 6) fix some incorrect assignment of Option=None heating systems ([#478](https://github.com/NREL/OpenStudio-BuildStock/pull/478))
+- Increase roofing material options; update roofing material tsv files to include these new options ([#485](https://github.com/NREL/OpenStudio-BuildStock/pull/485))
+
+Fixes
+- Based on RECS 2015, separate the plug load equations for single-family detached, single-family attached, and multifamily buildings ([#471](https://github.com/NREL/OpenStudio-BuildStock/pull/471)).
+- Fix for pseudo-random number generator that was generating non-deterministic occupancy schedules ([#477](https://github.com/NREL/OpenStudio-BuildStock/pull/477)).
+- Iterate all spaces in a thermal zone when checking for zone type; fixes missing infiltration for protruding garages in 1-story homes ([#480](https://github.com/NREL/OpenStudio-BuildStock/pull/480)).
+- Update spatial distribution of units based on total dwelling unit counts rather than occupied unit counts ([#486](https://github.com/NREL/OpenStudio-BuildStock/pull/486)).
+
+## ResStock v2.3.0
+###### June 24, 2020 - [Diff](https://github.com/NREL/OpenStudio-BuildStock/compare/v2.2.4...v2.3.0)
 
 Features
 - Remove the single-family detached project, and remove PAT from the testing and multifamily projects ([#402](https://github.com/NREL/OpenStudio-BuildStock/pull/402))
@@ -17,6 +35,9 @@ Features
 - Allow a key value to be specified when outputting timeseries variables ([#438](https://github.com/NREL/OpenStudio-BuildStock/pull/438))
 
 Fixes
+- Rename "project_multifamily_beta" to "project_national" ([#459](https://github.com/NREL/OpenStudio-BuildStock/pull/459))
+- Add mini-split heat pump pan heater to custom meter for heating electricity ([#454](https://github.com/NREL/OpenStudio-BuildStock/pull/454))
+- Assign daylight saving start/end dates based on county and not epw region ([#453](https://github.com/NREL/OpenStudio-BuildStock/pull/453))
 - Update ceiling fan tsv to remove the "National Average" option, and instead sample 28% "None" and 72% "Standard Efficiency" ([#445](https://github.com/NREL/OpenStudio-BuildStock/pull/445))
 - Remove Location Weather Filename and Location Weather Year tsvs, and update options lookup to reflect updated weather file changes; weather filenames are now required to match what is in the options lookup ([#432](https://github.com/NREL/OpenStudio-BuildStock/pull/432))
 - Fix bug in QOI reporting measure where absence of any heating/cooling/overlap seasons would cause errors ([#433](https://github.com/NREL/OpenStudio-BuildStock/pull/433))
@@ -27,6 +48,13 @@ Fixes
 - Revert plug load schedule to RBSA for the National Average option ([#355](https://github.com/NREL/OpenStudio-BuildStock/pull/355))
 - Removed the "Geometry Unit Stories SF" and "Geometry Unit Stories MF" housing characteristics. Unit stories are instead represented by the "Geometry Stories" housing characteristic ([#416](https://github.com/NREL/OpenStudio-BuildStock/pull/416))
 - Diversify window to wall ratio variation using the Residential Building Stock Assessment (RBSA) II data ([#412](https://github.com/NREL/OpenStudio-BuildStock/pull/412))
+- Fix bug in assigning small window areas to surfaces ([#452](https://github.com/NREL/OpenStudio-BuildStock/pull/452))
+
+## ResStock v2.2.5
+###### September 24, 2020 - [Diff](https://github.com/NREL/OpenStudio-BuildStock/compare/v2.2.4...v2.2.5)
+
+Fixes
+- Update the weather zip file url in each PAT project to point to a different location at data.nrel.gov ([#489](https://github.com/NREL/OpenStudio-BuildStock/pull/489))
 
 ## ResStock v2.2.4
 ###### April 28, 2020 - [Diff](https://github.com/NREL/OpenStudio-BuildStock/compare/v2.2.3...v2.2.4)
